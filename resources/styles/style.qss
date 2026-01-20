@@ -22,6 +22,30 @@ QPushButton:pressed {
     background: #28658d;
 }
 
+QPushButton#down_button {
+    background: #D34747;
+}
+
+QPushButton:hover#down_button {
+    background: #D56868;
+}
+
+QPushButton:pressed#down_button {
+    background: #A22B2B;
+}
+
+QPushButton#up_button {
+    background: #2BCB5D;
+}
+
+QPushButton:hover#up_button {
+    background: #5ADC83;
+}
+
+QPushButton:pressed#up_button {
+    background: #28A951;
+}
+
 QScrollBar:vertical {
     background: transparent;
 }

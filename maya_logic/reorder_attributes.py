@@ -2,8 +2,6 @@ from maya import cmds
 
 from PySide2 import QtWidgets
 
-from ReorderAttrs.maya_logic import get_maya_items as gmi
-
 
 def apply_order(attr_list: QtWidgets.QListWidget, node: str):
     """

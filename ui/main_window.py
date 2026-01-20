@@ -18,8 +18,6 @@ class ReorderAttributesWindow(QtWidgets.QDialog):
         self.setMinimumSize(300, 300)
         self.setWindowIcon(QtGui.QIcon(f"{_ROOT_DIR}/resources/icons/list_icon_black.svg"))
 
-        print('hello world')
-
         stylesheet = load.load_stylesheet(f"{_ROOT_DIR}/resources/styles/style.qss")
         self.setStyleSheet(stylesheet)
 
@@ -35,14 +33,31 @@ class ReorderAttributesWindow(QtWidgets.QDialog):
         master_layout.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignTop)
 
         self.build_attrs_list_widget()
+        self.build_up_down_buttons()
 
         master_layout.addWidget(self.attr_list)
+        master_layout.addLayout(self.up_down_layout)
 
     def build_attrs_list_widget(self):
         self.attr_list = QtWidgets.QListWidget()
         self.attr_list.setDragDropMode(QtWidgets.QAbstractItemView.InternalMove)
         self.attr_list.setDefaultDropAction(QtCore.Qt.MoveAction)
         self.attr_list.model().rowsMoved.connect(lambda: ra.apply_order(self.attr_list, gmi.get_selected_node()))
+
+    def build_up_down_buttons(self):
+        down_button = QtWidgets.QPushButton()
+        down_button.setIcon(QtGui.QIcon(f"{_ROOT_DIR}/resources/icons/down_arrow_white.png"))
+        down_button.setObjectName("down_button")
+        down_button.clicked.connect(self.move_item_down)
+
+        up_button = QtWidgets.QPushButton()
+        up_button.setIcon(QtGui.QIcon(f"{_ROOT_DIR}/resources/icons/up_arrow_white.png"))
+        up_button.setObjectName("up_button")
+        up_button.clicked.connect(self.move_item_up)
+
+        self.up_down_layout = QtWidgets.QHBoxLayout()
+        self.up_down_layout.addWidget(down_button)
+        self.up_down_layout.addWidget(up_button)
 
     def populate(self):
         QtCore.QTimer.singleShot(0, self._refresh)
@@ -57,6 +72,28 @@ class ReorderAttributesWindow(QtWidgets.QDialog):
         attrs_list = gmi.get_custom_not_hidden_attributes(node)
         for attr in attrs_list:
             self.attr_list.addItem(attr)
+
+    def move_item_down(self):
+        current_row = self.attr_list.currentRow()
+        if current_row < 0 or current_row >= self.attr_list.count() - 1:
+            return  # Nothing to move or already at bottom
+
+        item = self.attr_list.takeItem(current_row)
+        self.attr_list.insertItem(current_row + 1, item)
+        self.attr_list.setCurrentRow(current_row + 1)
+
+        ra.apply_order(self.attr_list, gmi.get_selected_node())
+
+    def move_item_up(self):
+        current_row = self.attr_list.currentRow()
+        if current_row <= 0:
+            return
+
+        item = self.attr_list.takeItem(current_row)
+        self.attr_list.insertItem(current_row - 1, item)
+        self.attr_list.setCurrentRow(current_row - 1)
+
+        ra.apply_order(self.attr_list, gmi.get_selected_node())
 
     def closeEvent(self, event):
         if self.selection_watcher:
