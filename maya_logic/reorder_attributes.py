@@ -29,7 +29,7 @@ def delete_attr_list(node: str, moved_attr_list: list):
 
         cmds.deleteAttr(attr_long_name)
 
-        cmds.undoInfo(openChunk=False)
+        cmds.undoInfo(closeChunk=True)
         cmds.undo()
 
     for i in lock_later:

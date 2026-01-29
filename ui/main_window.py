@@ -69,14 +69,14 @@ class ReorderAttributesWindow(QtWidgets.QDialog):
         if not node:
             return
 
-        attrs_list = gmi.get_custom_not_hidden_attributes(node)
+        attrs_list = gmi.get_custom_non_hidden_attributes(node)
         for attr in attrs_list:
             self.attr_list.addItem(attr)
 
     def move_item_down(self):
         current_row = self.attr_list.currentRow()
         if current_row < 0 or current_row >= self.attr_list.count() - 1:
-            return  # Nothing to move or already at bottom
+            return
 
         item = self.attr_list.takeItem(current_row)
         self.attr_list.insertItem(current_row + 1, item)

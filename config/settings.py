@@ -1,2 +1,2 @@
 APP_NAME = "Reorder Custom Attributes"
-VERSION = "1.0"
+VERSION = "1.1"

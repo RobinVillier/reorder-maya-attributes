@@ -7,7 +7,7 @@ def get_selected_node():
     return sel[0] if sel else None
 
 
-def get_custom_not_hidden_attributes(node: str) -> list[str]:
+def get_custom_non_hidden_attributes(node: str) -> list[str]:
     """Get custom attributes of the first selected node that are visible in the channel box"""
 
     attrs = cmds.listAttr(node, ud=True) or []
