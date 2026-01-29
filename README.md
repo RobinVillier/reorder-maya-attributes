@@ -1,5 +1,5 @@
 
-# ReorderAttrs
+# Reorder Maya Attrs
 
 A Maya tool for reordering custom attributes with an efficient UI.
 
@@ -25,7 +25,7 @@ ReorderAttrs/
 ## Installation
 
 1. Place this folder in your Maya scripts directory.
-2. Run the script from Maya's Script Editor or from one fo your shelves.
+2. Run the script from Maya's Script Editor or from one of your shelves.
 
 ## Usage
 
@@ -37,7 +37,7 @@ main.launch()
 
 ## Requirements
 
-- Autodesk Maya (up to 2025).
+- Autodesk Maya (up to 2025, go to my [gumroad](https://redfoxx.gumroad.com/l/reorder-maya-attributes) for 2026 version and above).
 - PySide2/PyQt5.
 
 ## Contact
